@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="def5f180-e3d6-4f81-b451-4801cca141d7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     parkir_keluar.`id` AS parkir_keluar_id,
+     parkir_keluar.`nomor_kendaraan` AS parkir_keluar_nomor_kendaraan,
+     parkir_keluar.`nomor_karcis` AS parkir_keluar_nomor_karcis,
+     parkir_keluar.`jenis_kendaraan` AS parkir_keluar_jenis_kendaraan,
+     parkir_keluar.`jam_masuk` AS parkir_keluar_jam_masuk,
+     parkir_keluar.`jam_keluar` AS parkir_keluar_jam_keluar,
+     parkir_keluar.`lama_parkir` AS parkir_keluar_lama_parkir,
+     parkir_keluar.`harga_kendaraan` AS parkir_keluar_harga_kendaraan,
+     parkir_keluar.`total_bayar` AS parkir_keluar_total_bayar
+FROM
+     `parkir_keluar` parkir_keluar]]>
+	</queryString>
+	<field name="parkir_keluar_nomor_kendaraan" class="java.lang.String"/>
+	<field name="parkir_keluar_nomor_karcis" class="java.lang.String"/>
+	<field name="parkir_keluar_jenis_kendaraan" class="java.lang.String"/>
+	<field name="parkir_keluar_jam_masuk" class="java.sql.Timestamp"/>
+	<field name="parkir_keluar_jam_keluar" class="java.sql.Timestamp"/>
+	<field name="parkir_keluar_lama_parkir" class="java.lang.Integer"/>
+	<field name="parkir_keluar_harga_kendaraan" class="java.lang.Integer"/>
+	<field name="parkir_keluar_total_bayar" class="java.lang.Integer"/>
+	<field name="parkir_keluar_id" class="java.lang.Integer"/>
+	<group name="parkir_keluar_id">
+		<groupExpression><![CDATA[$F{parkir_keluar_id}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="-21" y="7" width="843" height="24" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="158da2d1-636f-438c-ba6c-145671bb15ed"/>
+					<rectangle>
+						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#736343" uuid="149591a2-6609-4aba-84ab-f5dd6238bd69"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="164" height="126" uuid="6e7883bb-032e-4ccc-a370-85834f8c2512"/>
+				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="270" y="0" width="263" height="62" uuid="ab4ca8c8-a16b-4741-9220-83c7cd63a4b3"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" uuid="fcd44557-c7ba-47e8-b412-307bc71dafdd"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="94" width="383" height="42" uuid="9e5ca928-88bd-4023-933c-a39a24365ee0"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="633" y="-73" width="219" height="209" uuid="f5f72684-59c7-400b-b06b-0a300f755f6a"/>
+				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="1deb76db-c152-499e-a427-7b8703c2c8cd"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="100" height="15" forecolor="#736343" uuid="f355a4e7-cc2b-4fcf-9115-03baebd270ad"/>
+				<text><![CDATA[parkir_keluar_nomor_kendaraan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="100" y="0" width="100" height="15" forecolor="#736343" uuid="bfc1fda6-0c3a-4850-b3da-507e5fca81d9"/>
+				<text><![CDATA[parkir_keluar_nomor_karcis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="200" y="0" width="100" height="15" forecolor="#736343" uuid="a6066414-d6c9-4826-8129-5219238c425a"/>
+				<text><![CDATA[parkir_keluar_jenis_kendaraan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="300" y="0" width="100" height="15" forecolor="#736343" uuid="5c9502c1-5038-4ec2-8271-2ff2965fec0b"/>
+				<text><![CDATA[parkir_keluar_jam_masuk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="400" y="0" width="100" height="15" forecolor="#736343" uuid="82364cb6-2132-4bec-880a-07d53709ea88"/>
+				<text><![CDATA[parkir_keluar_jam_keluar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="500" y="0" width="100" height="15" forecolor="#736343" uuid="01aeadf9-4b5f-4efb-896d-0a9fc37f2a5a"/>
+				<text><![CDATA[parkir_keluar_lama_parkir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="600" y="0" width="100" height="15" forecolor="#736343" uuid="3c3dc5c6-8960-44cb-ae5c-54a63e595c52"/>
+				<text><![CDATA[parkir_keluar_harga_kendaraan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="700" y="0" width="100" height="15" forecolor="#736343" uuid="f261fb9e-d866-4f72-840f-fcbb58e52d2b"/>
+				<text><![CDATA[parkir_keluar_total_bayar]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="747ebaa3-ccd6-4df1-9336-ca5505b13303"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="100" height="15" uuid="e33b74b4-4536-49f6-b391-f12e25ab2fb6"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_nomor_kendaraan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="100" y="0" width="100" height="15" uuid="a751966f-58a1-4cd0-b752-52382f272f4f"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_nomor_karcis}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="200" y="0" width="100" height="15" uuid="654dd8ef-5c57-4b42-a8f5-41406af2dd0b"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_jenis_kendaraan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="300" y="0" width="100" height="15" uuid="fa8b57f7-be05-45e9-838c-6de5dc8ad710"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_jam_masuk}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="400" y="0" width="100" height="15" uuid="0d892a74-051b-4e5a-9006-70b75b65699e"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_jam_keluar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="500" y="0" width="100" height="15" uuid="8b005f8e-78d4-469c-89d9-744fbe9f28b5"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_lama_parkir}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="600" y="0" width="100" height="15" uuid="6ec0e2e5-5ee7-44bd-9618-7b8f7bfd447d"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_harga_kendaraan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="700" y="0" width="100" height="15" uuid="db6b0198-4a65-4307-a66c-4a98f63192ff"/>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_total_bayar}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="64655ade-44e6-4dd7-a6d2-8752c89c0710"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="55452134-9b00-4d2a-b0ea-dcd4a8fa1e05"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="cf242fa9-dce4-44cb-99a5-33744adefbfa"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="ca41cf78-c129-4f42-86a9-ecaa671a3f24"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="89242d27-f06a-44c1-ae05-1bc4ee69fdd9"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
