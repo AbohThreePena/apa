@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="283" pageHeight="283" columnWidth="283" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b530cb35-fd74-47f8-910d-89f3216275a6">
+	<property name="ireport.zoom" value="2.3579476910000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="karcis" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     parkir_keluar.`id` AS parkir_keluar_id,
+     parkir_keluar.`nomor_kendaraan` AS parkir_keluar_nomor_kendaraan,
+     parkir_keluar.`nomor_karcis` AS parkir_keluar_nomor_karcis,
+     parkir_keluar.`jenis_kendaraan` AS parkir_keluar_jenis_kendaraan,
+     parkir_keluar.`jam_masuk` AS parkir_keluar_jam_masuk,
+     parkir_keluar.`jam_keluar` AS parkir_keluar_jam_keluar,
+     parkir_keluar.`lama_parkir` AS parkir_keluar_lama_parkir,
+     parkir_keluar.`total_bayar` AS parkir_keluar_total_bayar
+FROM
+     `parkir_keluar` parkir_keluar where nomor_karcis = $P{karcis};]]>
+	</queryString>
+	<field name="parkir_keluar_id" class="java.lang.Integer"/>
+	<field name="parkir_keluar_nomor_kendaraan" class="java.lang.String"/>
+	<field name="parkir_keluar_nomor_karcis" class="java.lang.String"/>
+	<field name="parkir_keluar_jenis_kendaraan" class="java.lang.String"/>
+	<field name="parkir_keluar_jam_masuk" class="java.sql.Timestamp"/>
+	<field name="parkir_keluar_jam_keluar" class="java.sql.Timestamp"/>
+	<field name="parkir_keluar_lama_parkir" class="java.lang.Integer"/>
+	<field name="parkir_keluar_total_bayar" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="226" height="26" uuid="76fc6268-f24a-4cd1-b4ca-2a4407c1aa19"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Comic Sans MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AXIA PARKIR STRUK]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="40" width="40" height="20" uuid="b64ab3c9-74d3-4365-b649-daa25af47bb8"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[OUT       :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="20" width="113" height="20" uuid="e3541cf5-010d-4415-9b70-1e5932105852"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parkir_keluar_jam_masuk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="0" width="93" height="20" uuid="230d34d2-1763-43da-9b61-c4bce3fee66e"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parkir_keluar_jenis_kendaraan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="20" width="40" height="20" uuid="363ff46c-6651-442c-a57d-88b3be9f5081"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[IN           :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="40" width="113" height="20" uuid="15202283-a5c6-402c-864b-72c9ba02e536"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parkir_keluar_jam_keluar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="60" width="40" height="20" uuid="39cc1eed-81f0-4021-8728-178ed09a8da0"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[DURASI  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="60" width="13" height="20" uuid="6d371971-f06c-412e-9029-c4ad7eafe634"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parkir_keluar_lama_parkir}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="60" width="46" height="20" uuid="2274c863-6769-4f09-877a-208a3a051361"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[JAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="80" width="61" height="21" uuid="ec914867-c4f8-4ced-8c3a-3b164369617f"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[SEWA PARKIR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="113" y="80" width="77" height="20" uuid="3952847a-235b-4e4a-a35e-20936b1d573f"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parkir_keluar_total_bayar}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<textField>
+					<reportElement x="40" y="0" width="49" height="20" uuid="20be09cd-099a-4537-b8d9-ec588602eef0"/>
+					<textElement>
+						<font fontName="Comic Sans MS" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{parkir_keluar_nomor_kendaraan}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<staticText>
+				<reportElement x="90" y="0" width="11" height="20" uuid="62508205-ff2b-4f5c-81d5-5a9cdbafdc67"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="101" width="214" height="29" uuid="3e145cc7-8d08-4fa8-9381-55296cfb0d00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Comic Sans MS" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERIMA KASIH ATAS KUNJUNGAN ANDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="80" width="12" height="20" uuid="f270516c-ae98-4f37-aab7-dd42486c8bc9"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="8"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="25" y="140" width="100" height="20" uuid="88d7b97e-e8af-4810-8ff8-0ae9fbbef9a0"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

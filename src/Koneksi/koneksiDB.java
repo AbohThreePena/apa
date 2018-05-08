@@ -1,4 +1,4 @@
-    package koneksi;
+package koneksi;
 
         import java.sql.DriverManager;
         import java.sql.Connection;
@@ -13,7 +13,10 @@
  */
 public class koneksiDB {
     private static Connection koneksi;
-    public static Connection getConnection() throws SQLException {
+    public Connection getKoneksi() {
+        return koneksi;
+    } 
+    public static Connection getConnection() throws SQLException{
         if(koneksi==null){
            try {
                String url = "jdbc:mysql://localhost:3306/axia_parkir";

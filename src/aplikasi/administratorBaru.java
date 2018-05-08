@@ -23,7 +23,7 @@ public class administratorBaru extends javax.swing.JInternalFrame {
   
     public administratorBaru() {
         initComponents();
-        KoneksiDB();
+//        KoneksiDB();
         ShowData();
         FormUtil.centerWindow(this);
         clear();
@@ -153,6 +153,11 @@ public class administratorBaru extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 10)); // NOI18N
         jLabel4.setText("LEVEL USER");
@@ -431,10 +436,12 @@ public class administratorBaru extends javax.swing.JInternalFrame {
         keter=String.valueOf(ket.getText());
 
         try{
-            sql="INSERT INTO login_data2 (id, username, password, level_user, nama_pegawai)value"
+            Connection c=koneksiDB.getConnection();
+            Statement s= c.createStatement();
+            String sql="INSERT INTO login_data2 (id, username, password, level_user, nama_pegawai)value"
             + "('"+ ids +"','"+ usm +"','"+ pas +"','"+ lvu +"','"+ keter +"')";
-            st=con.createStatement();
-            st.execute(sql);
+            st=c.createStatement();
+            s.execute(sql);
             clear();
             ShowData();
             AutoKodePegawai();
@@ -536,6 +543,21 @@ public class administratorBaru extends javax.swing.JInternalFrame {
         //close window
         this.dispose();
     }//GEN-LAST:event_closeActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        username.setText(null);
+        kodepegawai.setText(null);
+        kodepegawai.setEditable(false);
+        password.setText(null);
+        JLevel_User.setSelectedItem(null);
+        ket.setText(null);
+        del.setEnabled(false);
+//        jButton3.setEnabled(false);
+        simpan.setEnabled(true);
+//        AutoNumber();
+        ShowData();
+    }//GEN-LAST:event_jPanel1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
