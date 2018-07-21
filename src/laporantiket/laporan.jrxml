@@ -50,7 +50,7 @@ FROM
 		<band height="70" splitType="Stretch">
 			<image>
 				<reportElement x="275" y="0" width="300" height="64" uuid="005e7eed-cafb-49ad-8902-15483cff9030"/>
-				<imageExpression><![CDATA["src/laporantiket/leaf_banner_red.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\Singgih\\Desktop\\Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\src\\laporantiket\\leaf_banner_red.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="c41abb7f-1f53-4a27-bf66-1390cd33faca"/>

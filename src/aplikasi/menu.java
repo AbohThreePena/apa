@@ -17,22 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractAction;
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
 import javax.swing.Timer;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.text.NumberFormatter;
 import koneksi.koneksiDB;
 import java.lang.String;
-import static java.lang.String.format;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.Random;
@@ -50,53 +38,84 @@ import org.opencv.highgui.VideoCapture;
 import net.sf.jasperreports.engine.JasperPrintManager;
 
 public class menu extends javax.swing.JFrame {
-    private koneksiDB db = new koneksiDB();
-    public void aksesuser() {
-    String ID = userakses.getUserLogin();
-    String status = userakses.getstatus();
+    String namapegawai = userakses.getU_nama();
+    String kodepegawai = userakses.getU_kodePegawai();
+    String leveluser = userakses.getU_levelUser();
+//    Byte fotopegawai = userakses.getU_fotoUser();
     
+    public menu(){
+        initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        setJam();
+        setTanggal();
+        jenisKendaraan();
+        jPanel5.setBackground(new Color(0,0,0,70));
+        jTextField1.setEditable(false);
+        jLabel14.setText(namapegawai);
+        jLabel16.setText(kodepegawai);
+        jLabel15.setText(leveluser);
+        tampilfoto();
     }
+    public void clear() {
+        jTextField2.setText("");
+        jTextField1.setText("");
+        jTextField3.setText("0");
+    }
+    
     public int getDurasi(Timestamp jmmasuk, Date jmkeluar){
-        String d1 = null;
-        d1 = jmmasuk.toString();
+//        String d1 = null;
+//        d1 = jmmasuk.toString();
         long diff = Math.abs(jmkeluar.getTime()) - Math.abs(jmmasuk.getTime());
-        long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
+//        long diffSeconds = diff / 1000 % 60;
+//        long diffMinutes = diff / (60 * 1000) % 60;
         long diffHours = diff / (60 * 60 * 1000) % 24 ;
         long diffDays = diff / (24 * 60 * 60 * 1000);
-
-        int b = (int) diffDays;
-        int c = (int) diffHours;
         int hasilSelisih = (24 * (int) diffDays) + (int) diffHours;
             if (hasilSelisih < 1) {
                 hasilSelisih = 1;
             }        
         return hasilSelisih;  
     }
-    public void jenisKendaraan(){
-        
+    public void tampilfoto() {
         try {
-            Connection con = db.getConnection();
+        Connection con = koneksiDB.getConnection();
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("select * from login_data2 where id = '"+kodepegawai+"'");
+            if(rs.next()){
+                byte[] img = rs.getBytes("foto_pegawai");
+                //Resize The ImageIcon
+                ImageIcon image = new ImageIcon(img);
+                Image im = image.getImage();
+                Image myImg = im.getScaledInstance(jLabel13.getWidth(), jLabel13.getHeight(),Image.SCALE_SMOOTH);
+                ImageIcon newImage = new ImageIcon(myImg);
+                jLabel13.setIcon(newImage);
+            }
+        }
+        catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error 101!");
+        } catch (Exception f) {
+            jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_87_111095.png")));
+        }
+    }
+    public void jenisKendaraan(){
+        try {
+            Connection con = koneksiDB.getConnection();
             String query = "SELECT * FROM harga_kendaraan";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
             
             while (rs.next()) {
-                Object[] obj = new Object[3];
+                Object[] obj = new Object[5];
                 obj[0] = rs.getString(1);
                 obj[1] = rs.getString(2);
                 obj[2] = rs.getString(3);
+                obj[3] = rs.getInt(4);
+                obj[4] = rs.getInt(5);
                 jComboBox1.addItem((String) obj[1]);
-//                jTextField4.setText((String) obj[2]);
-//                String combo = rs.getString("jenis_kendaraan");
-//                jTextField4.setText(rs.getString("harga_kendaraan"));
-//                jTextField4.setText(rs.getString(hargakendaraan));
             }
             rs.last();
             int jumlahdata = rs.getRow();
             rs.first();
-//            hasilJenis();
-            
         } catch (SQLException e) {
         }
     }
@@ -114,93 +133,60 @@ public class menu extends javax.swing.JFrame {
            }
            return rs;
     }
-    public String getHasilJenis(String hasil2) {
-        try {
-            Connection con = db.getConnection();
-            String sql = "Select id, harga_kendaraan from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
-            Statement stt = con.createStatement();
-            ResultSet rss = stt.executeQuery(sql);
-            while (rss.next()) {
-                Object[] ob = new Object[3];
-                ob[0] = rss.getString(1);
-                ob[1] = rss.getString(2);
-                
-                
-                hasil2 = (String) ob[1];
-               
-            } rss.close(); stt.close();
-        } catch (Exception E) {
-            JOptionPane.showMessageDialog(rootPane, E);
+    public void hasilJenis2(){
+            try {
+                Connection con = koneksiDB.getConnection();
+                String sql = "Select id, harga_kendaraan from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
+                Statement stt = con.createStatement();
+                ResultSet rss = stt.executeQuery(sql);
+                while (rss.next()) {
+                    Object[] ob = new Object[3];
+                    ob[0] = rss.getString(1);
+                    ob[1] = rss.getString(2);
+                    String hasil = (String) ob[1];
+                    } rss.close(); stt.close();
+                } catch (SQLException E) {
+                    JOptionPane.showMessageDialog(rootPane, E);
+            }  
         }
-        return hasil2;
-    }
-       public void hasilJenis2(){
-        try {
-            Connection con = db.getConnection();
-            String sql = "Select id, harga_kendaraan from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
-            Statement stt = con.createStatement();
-            ResultSet rss = stt.executeQuery(sql);
-            while (rss.next()) {
-                Object[] ob = new Object[3];
-                ob[0] = rss.getString(1);
-                ob[1] = rss.getString(2);
-                
-                
-                String hasil = (String) ob[1];
-            } rss.close(); stt.close();
-        } catch (Exception E) {
-            JOptionPane.showMessageDialog(rootPane, E);
-        }  
-    }
-    public menu(){
-        initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        setJam();
-        setTanggal();
-        jenisKendaraan();
-        jTextField2.requestFocus();
-        jPanel5.setBackground(new Color(0,0,0,70));
-    }
     public void perhitungan() throws SQLException {
-       
-//        int harga = 0;
-//        if (jList1.getSelectedValue()=="MOTOR"){
-//            harga = 3000;
-//        } else if (jList1.getSelectedValue()=="MOBIL"){
-//            harga = 4000;
-//        } else if (jList1.getSelectedValue()=="MOBIL BOX"){
-//            harga = 5000;
-//        }
-            Connection con = db.getConnection();
-            String sql = "Select id, harga_kendaraan from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
+            Connection con = koneksiDB.getConnection();
+            String sql = "Select id, harga_kendaraan, harga_maks_kend from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
             Statement stt = con.createStatement();
             ResultSet rss = stt.executeQuery(sql);
             while (rss.next()) {
-                Object[] ob = new Object[3];
+                Object[] ob = new Object[4];
                 ob[0] = rss.getString(1);
-                ob[1] = rss.getString(2);
-                String harga = (String) ob[1];
-        
-                int hargacvt = Integer.parseInt(harga);
+                ob[1] = rss.getInt(2);
+                ob[2] = rss.getInt(3);
+                Integer harga = (Integer)ob[1];
+                Integer maks  = (Integer)ob[2];
+//                int hargacvt = Integer.parseInt(harga);
                 ResultSet rs = getNomorKarcis();
                 Date jmkeluar = new Date();
                 try {
                     jTextField1.setText(rs.getString("nomor_kendaraan"));
                     Timestamp jmmasuk = rs.getTimestamp("jam_masuk");
-                    java.util.Date d = new java.util.Date ();
+                    java.util.Date d = new java.util.Date();
                     SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     int durasi = getDurasi(jmmasuk,jmkeluar);
             //            int total = rs.getInt(harga);
-                    int totalbayar = durasi*hargacvt;
+                    int totalbayar = durasi*harga;
+                        if (totalbayar >= maks) {
+                            totalbayar = maks;
+                            if (maks == 0) {
+                                totalbayar = durasi*harga;
+                            }
+                        }
                     NumberFormat nf = NumberFormat.getInstance();
                     jTextField3.setText(nf.format(totalbayar));
-        } catch (SQLException ex) {
-            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
         }
-    } 
-}
-        public void setJam(){
-        ActionListener taskPerformer = new ActionListener() {
+    public void setJam(){
+        ActionListener taskPerformer = new ActionListener(){
             public void actionPerformed(ActionEvent evt) {
                 String nol_jam = "", nol_menit = "",nol_detik = "";
                 java.util.Date dateTime = new java.util.Date();
@@ -214,7 +200,7 @@ public class menu extends javax.swing.JFrame {
                 String menit = nol_menit + Integer.toString(nilai_menit);
                 String detik = nol_detik + Integer.toString(nilai_detik);
                 jLabel2.setText(waktu+":"+menit+":"+detik+"");
-    }
+            }
         };
         new Timer(1000, taskPerformer).start();
     }
@@ -257,6 +243,7 @@ public class menu extends javax.swing.JFrame {
         Logout = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -333,11 +320,6 @@ public class menu extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
         jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField2KeyPressed(evt);
@@ -345,6 +327,7 @@ public class menu extends javax.swing.JFrame {
         });
 
         jComboBox1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        jComboBox1.setMaximumRowCount(3);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -356,11 +339,6 @@ public class menu extends javax.swing.JFrame {
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField3.setText("                                                               0");
         jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         jLabel11.setText("JENIS");
@@ -381,16 +359,14 @@ public class menu extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(9, 9, 9)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel4))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -402,28 +378,26 @@ public class menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(58, 58, 58)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField1))))
                 .addGap(33, 33, 33))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(22, 22, 22)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -474,12 +448,16 @@ public class menu extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton1KeyPressed(evt);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 440, 80));
+
+        jButton3.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        jButton3.setText("LOST TICKET");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 440, 80));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 90));
 
         jDesktopPane2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 1370, 110));
 
@@ -516,9 +494,11 @@ public class menu extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel13.setBackground(new java.awt.Color(41, 128, 185));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Ridzqy Rachdianto Foto_80x90.jpg"))); // NOI18N
-        jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 3));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_87_111095.png"))); // NOI18N
+        jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jLabel13.setOpaque(true);
 
         jLabel14.setBackground(new java.awt.Color(204, 255, 204));
         jLabel14.setForeground(new java.awt.Color(204, 255, 204));
@@ -553,22 +533,22 @@ public class menu extends javax.swing.JFrame {
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -649,20 +629,13 @@ public class menu extends javax.swing.JFrame {
         //fungsi untuk logout button
         if (JOptionPane.showConfirmDialog(null,"Do you want to logout? ", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            new Frame_Login().setVisible(true);
+            new frameLogin().setVisible(true);
         }
     }//GEN-LAST:event_LogoutActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            
-        try {                                         
-            
-            Connection con = db.getConnection();
+        try {
+            Connection con = koneksiDB.getConnection();
             String sql = "Select id, harga_kendaraan from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
             Statement stt;
             try {
@@ -671,171 +644,150 @@ public class menu extends javax.swing.JFrame {
                 while (rss.next()) {
                     Object[] ob = new Object[3];
                     ob[0] = rss.getString(1);
-                    ob[1] = rss.getString(2);
-                    String harga = (String) ob[1];
-                    int hargacvt = Integer.parseInt(harga);
+                    ob[1] = rss.getInt(2);
+                    Integer harga = (Integer) ob[1];
+//                    int hargacvt = Integer.parseInt(harga);
                     ResultSet rs = getNomorKarcis();
                     Timestamp jmmasuk = rs.getTimestamp("jam_masuk");
                     Date jmkeluar = new Date();
                     String jmkeluar2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(jmkeluar);
                     int durasi = getDurasi(jmmasuk,jmkeluar);
-                    int totalbayar = durasi*hargacvt;
+                    int totalbayar = durasi*harga;
                     java.util.Date d = new java.util.Date();
                     SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    
-                    
-                    Connection kon = db.getConnection();
-                    String query = "update parkir_keluar set nomor_kendaraan = '" + jTextField1.getText() +
-                            "',jenis_kendaraan = '" + jComboBox1.getSelectedItem()+
-                            "',jam_keluar = '" + jmkeluar2 +
-                            "',lama_parkir = '" + durasi +
-                            "',total_bayar = '" + totalbayar +
-                            "' where nomor_karcis = '" + jTextField2.getText() + "'";
-                    
-                    Connection c=koneksiDB.getConnection();
-                    Statement st=(Statement)c.createStatement();
-                    st.executeUpdate(query);
-                    st.close();
+                            
+                            String query = "update parkir_keluar set nomor_kendaraan = '" + jTextField1.getText() +
+                                    "',jenis_kendaraan = '" + jComboBox1.getSelectedItem()+
+                                    "',jam_keluar = '" + jmkeluar2 +
+                                    "',lama_parkir = '" + durasi +
+                                    "',total_bayar = '" + totalbayar +
+                                    "' where nomor_karcis = '" + jTextField2.getText() + "'";
+                            
+                            Statement st=(Statement)con.createStatement();
+                            st.executeUpdate(query);
+                            st.close();
                 }
             }
             catch (SQLException ex) {
                 Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
-                
             }
-            String nokar = jTextField2.getText(); 
+            String nokar = jTextField2.getText();
             try{
                 String jrxmlFile = "src/laporantiket/struk.jrxml";
                 Connection c = koneksiDB.getConnection();
                 HashMap param = new HashMap();
                 param.put("karcis", nokar);
                 JasperReport JRpt =  JasperCompileManager.compileReport(jrxmlFile);
-                JasperPrint JPrint = JasperFillManager.fillReport(JRpt, param,c);
+                JasperPrint JPrint = JasperFillManager.fillReport(JRpt, param, c);
                 JasperViewer.viewReport(JPrint, false);
-//            JasperPrintManager.printReport(JPrint,false);
+        //            JasperPrintManager.printReport(JPrint,false);
             }
             catch(JRException e){
                 JOptionPane.showMessageDialog(rootPane, e);
             }
-        } 
+        }
         catch (SQLException ex) {
             Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
+        clear();
+        jTextField1.setEditable(false);
+        jTextField2.setEditable(true);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_aiga_taxi_134116.png")));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton1KeyPressed
-
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        // TODO add your handling code here:
-//        ResultSet rs = getNomorKarcis();
-//        Date jmkeluar = new Date();
-//                    
+        // perintah jika ditekan enter pada text nomor tiket               
         if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+                try {
+                    perhitungan();
+                    Connection conn = koneksiDB.getConnection();
+                    Statement stt = conn.createStatement();
+                    ResultSet rsf = stt.executeQuery("select * from parkir_keluar where nomor_karcis = '"+jTextField2.getText()+"'");
+                    if(rsf.next()){
+                        byte[] img = rsf.getBytes("fotomasuk");
+                        //Resize The ImageIcon
+                        ImageIcon image = new ImageIcon(img);
+                        Image im = image.getImage();
+                        Image myImg = im.getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(),Image.SCALE_SMOOTH);
+                        ImageIcon newImage = new ImageIcon(myImg);
+                        jLabel5.setIcon(newImage);
+                        jTextField2.setEditable(false);
+                        jTextField1.setEditable(true);
+                        jTextField1.requestFocus(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "No Data");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+            //foto saat kendaraan keluar
             try {
-                perhitungan();
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/axia_parkir","root","");
-                Statement stt = conn.createStatement();
-                ResultSet rsf = stt.executeQuery("select * from parkir_keluar where nomor_karcis = '"+jTextField2.getText()+"'");
-                if(rsf.next()){
-                    byte[] img = rsf.getBytes("fotomasuk");
-
-                    //Resize The ImageIcon
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image myImg = im.getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(),Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(myImg);
-                    jLabel5.setIcon(newImage);
+                VideoCapture camera = new VideoCapture(1);
+                int min = 10000;
+                Random randomNum = new Random();
+                int a = min + randomNum.nextInt();
+                Connection kon = koneksiDB.getConnection();
+                PreparedStatement ps = kon.prepareStatement("update parkir_keluar set fotokeluar=? where nomor_karcis = '"+jTextField2.getText()+"'");
+                Mat frame = new Mat();    
+                if(!camera.isOpened() || !camera.read(frame)){
+                        JOptionPane.showMessageDialog(this, "Mohon Cek Kamera Keluar!");
+                    }
+                    else {
+                        while(true){
+                                Highgui.imwrite("camera"+a+".jpg", frame);
+                                InputStream is = new FileInputStream("C:\\Users\\Singgih\\Desktop\\Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\camera"+a+".jpg");
+                                ps.setBlob(1, is);
+                                ps.executeUpdate();
+                                break;
+                        }
+                    } camera.release();	
                 }
-                
-                else{
-                    JOptionPane.showMessageDialog(null, "No Data");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-                    
-        //foto saat kendaraan keluar
-    	try {
-        VideoCapture camera = new VideoCapture(1);
-    	int max = 1;
-        int min = 10000;
-        Random randomNum = new Random();
-        int a = min + randomNum.nextInt();
-        Connection kon = DriverManager.getConnection("jdbc:mysql://localhost:3306/axia_parkir","root","");
-        PreparedStatement ps = kon.prepareStatement("update parkir_keluar set fotokeluar=? where nomor_karcis = '"+jTextField2.getText()+"'");
-        if(!camera.isOpened()){
-    		System.out.println("Error");
-    	}
-    	else {
-    		Mat frame = new Mat();
-    	    while(true){
-    	    	if (camera.read(frame)){
-                        System.out.println("Captured Frame Width " + 
-    	    		frame.width() + " Height " + frame.height());
-    	    		Highgui.imwrite("camera"+a+".jpg", frame);
-                        boolean b = Highgui.imwrite("camera"+a+".jpg", frame);
-                        InputStream is = new FileInputStream("C:\\Users\\Singgih\\Desktop\\Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\camera"+a+".jpg");
-
-                        ps.setBlob(1, is);
-                        ps.executeUpdate();
-                        break;
-    	    	}
-    	    }	
-    	}
-    	camera.release();
-        } 
-         catch (Exception f) {
-                JOptionPane.showMessageDialog(rootPane, "Error");
-                }
-         try{
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/axia_parkir","root","");
-                Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select * from parkir_keluar where nomor_karcis = '"+jTextField2.getText()+"'");
-                if(rs.next()){
-                    byte[] img = rs.getBytes("fotokeluar");
-
-                    //Resize The ImageIcon
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image myImg = im.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(),Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(myImg);
-                    jLabel8.setIcon(newImage);
-                }
-                
-                else{
-                    JOptionPane.showMessageDialog(null, "No Data");
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
+            catch (Exception f) {
+                    JOptionPane.showMessageDialog(rootPane, "Error");
+                    }
+             try{
+                 Connection con = koneksiDB.getConnection();
+                 Statement st = con.createStatement();
+                 ResultSet rs = st.executeQuery("select * from parkir_keluar where nomor_karcis = '"+jTextField2.getText()+"'");
+                 if(rs.next()){
+                     byte[] img = rs.getBytes("fotokeluar");
+                     //Resize The ImageIcon
+                     ImageIcon image = new ImageIcon(img);
+                     Image im = image.getImage();
+                     Image myImg = im.getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(),Image.SCALE_SMOOTH);
+                     ImageIcon newImage = new ImageIcon(myImg);
+                     jLabel8.setIcon(newImage);
+                 }
+                 else{
+                     JOptionPane.showMessageDialog(null, "No Data");
+                 }
+                 jTextField1.setEditable(true);
+                 jTextField2.setEditable(false);
+             }
+             catch(Exception ex){
+                 JOptionPane.showMessageDialog(null, "Error 201!");
+             }
         }
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        hasilJenis2();
+        hasilJenis2();  
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // pemanggilan menu lost ticket
+        lossTicket panggil = new lossTicket();
+        panggil.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new menu().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Logout;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel1;

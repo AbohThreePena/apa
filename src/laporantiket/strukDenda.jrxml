@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f99d3612-c052-4a87-bdba-487a47cceaaf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+        <parameter name="plat" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tiket_hilang.`id` AS tiket_hilang_id,
+     tiket_hilang.`plat_nomor` AS tiket_hilang_plat_nomor,
+     tiket_hilang.`jenis_kendaraan` AS tiket_hilang_jenis_kendaraan,
+     tiket_hilang.`total_denda` AS tiket_hilang_total_denda,
+     tiket_hilang.`tanggal_keluar` AS tiket_hilang_tanggal_keluar,
+     tiket_hilang.`foto_keluar` AS tiket_hilang_foto_keluar,
+     tiket_hilang.`no_identitas` AS tiket_hilang_no_identitas
+FROM
+     `tiket_hilang` tiket_hilang where plat_nomor = $P{plat};]]>
+	</queryString>
+	<field name="tiket_hilang_id" class="java.lang.Integer"/>
+	<field name="tiket_hilang_plat_nomor" class="java.lang.String"/>
+	<field name="tiket_hilang_jenis_kendaraan" class="java.lang.String"/>
+	<field name="tiket_hilang_total_denda" class="java.lang.Integer"/>
+	<field name="tiket_hilang_tanggal_keluar" class="java.sql.Timestamp"/>
+	<field name="tiket_hilang_foto_keluar" class="java.lang.Object"/>
+	<field name="tiket_hilang_no_identitas" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="336" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="12" width="100" height="20" uuid="d6893303-7220-4dfb-9c09-cfe473ec3aa4"/>
+				<text><![CDATA[Axia Parkir System]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="15" y="49" width="100" height="20" uuid="f6d5637d-269d-4b72-89c1-d946c868c938"/>
+				<textFieldExpression><![CDATA[$F{tiket_hilang_plat_nomor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="115" y="49" width="8" height="20" uuid="b9b59809-167b-43d5-936f-584f107a3e2f"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="123" y="49" width="100" height="20" uuid="1ee92140-e76b-41d9-bf4a-2703f5954cca"/>
+				<textFieldExpression><![CDATA[$F{tiket_hilang_jenis_kendaraan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="15" y="81" width="100" height="20" uuid="05ec48bb-aa61-492a-baa3-cc56be617216"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm.ss">
+				<reportElement x="123" y="81" width="100" height="20" uuid="314267d5-7f4d-472f-a07b-b878a5a5ded5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="118" width="100" height="20" uuid="0e7bb3a1-6f57-4fac-a21f-969e63e3c7d8"/>
+				<textFieldExpression><![CDATA[$F{tiket_hilang_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="118" width="16" height="20" uuid="17ed3929-d963-4ebc-88a5-12568c079bcb"/>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+			<line>
+				<reportElement x="15" y="32" width="208" height="1" uuid="069b162c-1792-4d40-9bdb-8f13fe111c78"/>
+			</line>
+			<line>
+				<reportElement x="15" y="159" width="208" height="1" uuid="954f6dca-3a31-49a8-95dd-5fd643d9c506"/>
+			</line>
+		</band>
+	</title>
+</jasperReport>

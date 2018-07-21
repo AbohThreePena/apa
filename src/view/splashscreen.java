@@ -3,13 +3,14 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
-import aplikasi.Frame_Login;
+import aplikasi.frameLogin;
+import aplikasi.*;
 
 
 public class splashscreen extends javax.swing.JFrame {
     Timer timer;
     ActionListener action;
-    Frame_Login hm;
+    frameLogin hm;
     splashscreen ss;
 
     public splashscreen() {
@@ -28,10 +29,13 @@ public class splashscreen extends javax.swing.JFrame {
         ProgressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/logoaxia.png"))); // NOI18N
 
-        ProgressBar.setForeground(new java.awt.Color(175, 16, 23));
+        ProgressBar.setBackground(new java.awt.Color(245, 246, 250));
+        ProgressBar.setForeground(new java.awt.Color(194, 54, 22));
+        ProgressBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(47, 54, 64)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,7 +84,7 @@ public class splashscreen extends javax.swing.JFrame {
                 if (ProgressBar.getPercentComplete() == 1.0) {
                     timer.stop();
                     dispose();
-                    hm = new Frame_Login();
+                    hm = new frameLogin();
                     hm.setVisible(true);
                 }
             }

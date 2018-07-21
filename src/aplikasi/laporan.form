@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
-  <NonVisualComponents>
-    <Container class="javax.swing.JMenu" name="jMenu1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenu1"/>
-      </Properties>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-    </Container>
-    <Component class="javax.swing.JMenuItem" name="jMenuItem1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenuItem1"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
+  <Properties>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="null"/>
+    </Property>
+    <Property name="title" type="java.lang.String" value="LAPORAN "/>
+    <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+      <Image iconType="3" name="/gambar/if_document_text_information_103515.png"/>
+    </Property>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -52,7 +45,7 @@
         <Container class="javax.swing.JPanel" name="jPanel12">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="cc" type="rgb"/>
+              <Color blue="cc" green="89" red="6a" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -70,7 +63,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -80,12 +73,17 @@
                                   <Component id="jDateChooser1" min="-2" pref="144" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton4" min="-2" pref="144" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" pref="144" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jButton4" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jButton2" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
@@ -101,22 +99,27 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
                                   <Component id="jDateChooser1" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -129,10 +132,10 @@
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="cc" type="rgb"/>
+                  <Color blue="e1" green="dd" red="dc" type="rgb"/>
                 </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="66" type="rgb"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Agency FB" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="SUBMIT"/>
               </Properties>
@@ -147,16 +150,28 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Agency FB" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="DARI TANGGAL"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Agency FB" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="SAMPAI TANGGAL"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="e1" green="dd" red="dc" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Agency FB" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="CLOSE"/>
               </Properties>
               <Events>
@@ -166,10 +181,10 @@
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="66" type="rgb"/>
+                  <Color blue="e1" green="dd" red="dc" type="rgb"/>
                 </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="cc" type="rgb"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Agency FB" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="PRINT"/>
               </Properties>

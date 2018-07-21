@@ -13,8 +13,9 @@ void setup() {
 //
 void loop() { 
   kirimData();
+//  kirimData2();
 
-  int input;
+  int input; // pc ke arduino
   if (Serial.available() > 0){
           input = Serial.parseInt();
           if (input == 1){
@@ -30,12 +31,24 @@ void loop() {
   }
 }
 
-void kirimData(){
+void kirimData(){ // arduino ke komputer
   int buttonState = digitalRead(tombol_karcis);
   if (buttonState == HIGH) {
-//    Serial.println(buttonState);
+    Serial.println(buttonState);
     digitalWrite(led_merah, HIGH);
     digitalWrite(led_hijau, HIGH);
+    delay(1000);
+    digitalWrite(led_merah, LOW);
+    digitalWrite(led_hijau, LOW);
   }
 }
+void kirimData2() {
+  int buttonState2 = digitalRead(tombol_karcis);
+  if (buttonState2 == LOW) {
+    Serial.println(buttonState2);
+    digitalWrite(led_merah, LOW);
+    digitalWrite(led_hijau, LOW);
+    }    
+}
+
 

@@ -1,13 +1,9 @@
 package aplikasi;
 
 import com.util.FormUtil;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -19,7 +15,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JScrollPane;
-import javax.swing.AbstractAction;
 
 public class laporan extends javax.swing.JInternalFrame {
     
@@ -27,30 +22,17 @@ public class laporan extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
     private String sql="";
     private JScrollPane scroll;
+    private ResultSet r;
 
     public laporan(){
-        koneksi();
         initComponents();
         FormUtil.centerWindow(this);
-    }
-    public void koneksi()   {
-            try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/axia_parkir", "root", "");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR \n Gagal Memuat KeDatabase \n Aktifkan Database Sebelum Memulai");
-        }
-    }
-    public void date () {
-        SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
-        String date = dformat.format(jDateChooser1.getDate());
+        jButton2.setEnabled(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel12 = new javax.swing.JPanel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -63,14 +45,14 @@ public class laporan extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
-        jMenu1.setText("jMenu1");
+        setBorder(null);
+        setTitle("LAPORAN ");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_document_text_information_103515.png"))); // NOI18N
 
-        jMenuItem1.setText("jMenuItem1");
+        jPanel12.setBackground(new java.awt.Color(106, 137, 204));
 
-        jPanel12.setBackground(new java.awt.Color(204, 255, 204));
-
-        jButton4.setBackground(new java.awt.Color(204, 255, 204));
-        jButton4.setForeground(new java.awt.Color(102, 102, 102));
+        jButton4.setBackground(new java.awt.Color(220, 221, 225));
+        jButton4.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
         jButton4.setText("SUBMIT");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,10 +60,14 @@ public class laporan extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
         jLabel1.setText("DARI TANGGAL");
 
+        jLabel2.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
         jLabel2.setText("SAMPAI TANGGAL");
 
+        jButton1.setBackground(new java.awt.Color(220, 221, 225));
+        jButton1.setFont(new java.awt.Font("Agency FB", 1, 12)); // NOI18N
         jButton1.setText("CLOSE");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,8 +75,8 @@ public class laporan extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 102));
-        jButton2.setForeground(new java.awt.Color(204, 255, 204));
+        jButton2.setBackground(new java.awt.Color(220, 221, 225));
+        jButton2.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
         jButton2.setText("PRINT");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +137,7 @@ public class laporan extends javax.swing.JInternalFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
@@ -159,11 +145,14 @@ public class laporan extends javax.swing.JInternalFrame {
                             .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -174,18 +163,21 @@ public class laporan extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton2)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -208,7 +200,12 @@ public class laporan extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         //fungsi untuk memangigl tanggal.
-        
+        String dateInput = ((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText();
+        String dateInput2 = ((JTextField)jDateChooser2.getDateEditor().getUiComponent()).getText();
+        if (dateInput.equals("") || dateInput2.equals("")) {
+            JOptionPane.showMessageDialog(null, "Mohon Mengisi Tanggal Yang Masih Kosong",
+                    "Perhatian!!", JOptionPane.ERROR_MESSAGE);
+        } else {
         model = new DefaultTableModel();
         table.setModel(model);
         model.addColumn ("Nomor Kendaraan");
@@ -221,12 +218,13 @@ public class laporan extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         try {
             Connection c=koneksiDB.getConnection();
-            Statement s= c.createStatement();
+            Statement s = c.createStatement();
             SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
             String date = dformat.format(jDateChooser1.getDate());
             String date2 = dformat.format(jDateChooser2.getDate());
-            String sql  = "SELECT * FROM parkir_keluar WHERE jam_keluar >= '"+date+" 00:00:00' AND jam_keluar < '"+date2+" 23:59:59'";
-            ResultSet r=s.executeQuery(sql);
+            sql  = "SELECT * FROM parkir_keluar WHERE jam_keluar >= '"+date+" 00:00:00' AND "
+                    + "jam_keluar < '"+date2+" 23:59:59'";
+            r=s.executeQuery(sql);
             while (r.next()) {
                 Object[] o=new Object[7];
                 o[0]=r.getString("nomor_kendaraan");
@@ -251,51 +249,43 @@ public class laporan extends javax.swing.JInternalFrame {
             r.close();
             s.close();
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR \n Gagal Memuat KeDatabase \n Aktifkan Database Sebelum Memulai");
-        }
-                
+            JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", 
+                    "Warning!", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            jButton2.setEnabled(true);
+        } 
+        }        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
-        jButton1.registerKeyboardAction(jButton1.getActionForKeyStroke(
-                                      KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-                                      KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-                                      JComponent.WHEN_FOCUSED);
-        
-        jButton1.registerKeyboardAction(jButton1.getActionForKeyStroke(
-                                      KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-                                      KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-                                      JComponent.WHEN_FOCUSED);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
-//             cetak ke jasper report
+     //             cetak ke jasper report
         SimpleDateFormat dformat2 = new SimpleDateFormat("yyyy-MM-dd");
         String date = dformat2.format(jDateChooser1.getDate());
         String date2 = dformat2.format(jDateChooser2.getDate());
-//        String date2 = "2018-04-10 14:26:11";
         try{
-            String jrxmlFile = "src/laporantiket/laporan.jrxml";
+            String jrxmlFile = "C:\\Users\\Singgih\\Desktop\\Aplikasi Parkir Axia\\"
+                    + "Aplikasi Parkir Axia\\src\\laporantiket\\laporan.jrxml";
             Connection c = koneksiDB.getConnection();
             HashMap param = new HashMap();
             param.put("jamkeluar", Date.valueOf(date));
             param.put("jamkeluar2", Date.valueOf(date2));
+
             JasperReport JRpt =  JasperCompileManager.compileReport(jrxmlFile);
             JasperPrint JPrint = JasperFillManager.fillReport(JRpt, param, c);
             JasperViewer.viewReport(JPrint, false);
-            
         }
         catch(JRException e){
-            JOptionPane.showMessageDialog(rootPane, e); } catch (SQLException ex) {
-            Logger.getLogger(laporan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+            JOptionPane.showMessageDialog(null, "Error 205"); } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error 205");
+        } catch (Exception f) {
+            JOptionPane.showMessageDialog(null, "Error 205");
+        } 
     }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -305,8 +295,6 @@ public class laporan extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane2;

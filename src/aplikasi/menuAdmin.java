@@ -1,52 +1,19 @@
 package aplikasi;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import aplikasi.Frame_Login;
 
 public class menuAdmin extends javax.swing.JFrame {
+    String userName = userakses.getU_username();
     
-    public int getDurasi(Timestamp jmmasuk, Date jmkeluar){
-        String d1 = null;
-        d1 = jmmasuk.toString();
-        long diff = Math.abs(jmkeluar.getTime()) - Math.abs(jmmasuk.getTime());
-        long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
-        long diffHours = diff / (60 * 60 * 1000) % 24 ;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
-
-        int b = (int) diffDays;
-        int c = (int) diffHours;
-        int hasilSelisih = (24 * (int) diffDays) + (int) diffHours;
-            if (hasilSelisih < 1) {
-                hasilSelisih = 1;
-            }        
-        return hasilSelisih;  
-    } 
-//    public ResultSet getNomorKarcis(){
-//       Connection con = null;
-//       ResultSet rs = null;
-//           try{
-//            Connection c = koneksiDB.getConnection();
-//            Statement s  = c.createStatement();
-//            String sql   = "select * from parkir_keluar where nomor_karcis = '"+jTextField2.getText()+"'";
-//            rs = s.executeQuery(sql);
-//            rs.next();
-//           }catch(SQLException ex){
-//              JOptionPane.showMessageDialog(null, ex.getMessage());
-//           }
-//           return rs;
-//    }
     public menuAdmin(){
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         setJam();
         setTanggal();
+        jLabel4.setText("SELAMAT DATANG " +userName);
     }
     public void setJam(){
         ActionListener taskPerformer = new ActionListener() {
@@ -82,6 +49,7 @@ public class menuAdmin extends javax.swing.JFrame {
         Logout = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         parkirMasuk = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -89,13 +57,12 @@ public class menuAdmin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        aplikasiParkir = new javax.swing.JMenuBar();
+        jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Parkir Axia v1.0");
@@ -138,9 +105,14 @@ public class menuAdmin extends javax.swing.JFrame {
                 parkirMasukActionPerformed(evt);
             }
         });
-        parkirMasuk.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                parkirMasukKeyPressed(evt);
+
+        jButton1.setBackground(new java.awt.Color(164, 176, 190));
+        jButton1.setFont(new java.awt.Font("Agency FB", 1, 16)); // NOI18N
+        jButton1.setText("LAPORAN");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -151,6 +123,8 @@ public class menuAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(parkirMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -159,12 +133,13 @@ public class menuAdmin extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(parkirMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Logout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(parkirMasuk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -259,75 +234,59 @@ public class menuAdmin extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        aplikasiParkir.setBackground(new java.awt.Color(52, 73, 94));
-        aplikasiParkir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        aplikasiParkir.setForeground(new java.awt.Color(52, 73, 94));
-        aplikasiParkir.setToolTipText("");
-        aplikasiParkir.setPreferredSize(new java.awt.Dimension(94, 26));
-        aplikasiParkir.setSelectionModel(null);
+        jMenuBar2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jMenu2.setBackground(new java.awt.Color(0, 0, 0));
         jMenu2.setForeground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("ADMIN");
-        jMenu2.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/resources/3d bar chart.png"))); // NOI18N
-        jMenuItem4.setText("Database Pegawai");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_Streamline-74_185094.png"))); // NOI18N
+        jMenuItem1.setText("SETTING");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(jMenuItem1);
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/resources/Edit-32.png"))); // NOI18N
-        jMenuItem6.setText("Laporan ");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_Streamline-77_185097.png"))); // NOI18N
+        jMenuItem2.setText("DATABASE USER");
+        jMenuItem2.setBorder(null);
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenu2.add(jMenuItem2);
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Display.png"))); // NOI18N
-        jMenuItem7.setText("Aplikasi Setting");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar2.add(jMenu2);
+
+        jMenu4.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu4.setText("ABOUT");
+        jMenu4.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+
+        jMenuItem3.setFont(new java.awt.Font("Agency FB", 0, 14)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_about_2639759.png"))); // NOI18N
+        jMenuItem3.setText("ABOUT APP");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem7);
+        jMenu4.add(jMenuItem3);
 
-        aplikasiParkir.add(jMenu2);
+        jMenuBar2.add(jMenu4);
 
-        jMenu7.setBackground(new java.awt.Color(0, 0, 0));
-        jMenu7.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu7.setText("TENTANG");
-        jMenu7.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/resources/About.png"))); // NOI18N
-        jMenuItem5.setText("Tentang Aplikasi");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem5);
-
-        aplikasiParkir.add(jMenu7);
-
-        setJMenuBar(aplikasiParkir);
-        aplikasiParkir.getAccessibleContext().setAccessibleParent(jDesktopPane2);
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -337,16 +296,12 @@ public class menuAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+            .addComponent(jDesktopPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
         
-    private void parkirMasukKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_parkirMasukKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_parkirMasukKeyPressed
-
     private void parkirMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parkirMasukActionPerformed
         // fungsi untuk memanggil halaman parkir masuk
         parkirmasuk panggil = new parkirmasuk ();
@@ -366,48 +321,41 @@ public class menuAdmin extends javax.swing.JFrame {
         //fungsi untuk logout button
         if (JOptionPane.showConfirmDialog(null,"Do you want to logout? ", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            new Frame_Login().setVisible(true);
+            new frameLogin().setVisible(true);
         }
     }//GEN-LAST:event_LogoutActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        //fungsi untuk memanggil jInternalFrame about
-        about panggil1 = new about();
-        jDesktopPane2.add(panggil1);
-        panggil1.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // panggil form aplikasiSetting
+        aplikasiSetting panggil = new aplikasiSetting();
+        jDesktopPane2.add(panggil);
+        panggil.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-        aplikasiSetting panggil2 = new aplikasiSetting();
-        jDesktopPane2.add(panggil2);
-        panggil2.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // panggil form administrator baru
+        administratorBaru panggil = new administratorBaru();
+        jDesktopPane2.add(panggil);
+        panggil.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        laporan panggil3 = new laporan();
-        jDesktopPane2.add(panggil3);
-        panggil3.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // panggil form about
+        about panggil = new about();
+        jDesktopPane2.add(panggil);
+        panggil.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // panggil form laporan
+        laporan panggil = new laporan();
+        jDesktopPane2.add(panggil);
+        panggil.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // fungsi untuk memanggil halaman admin
-        administratorBaru panggil4 = new administratorBaru();
-        jDesktopPane2.add(panggil4);
-        panggil4.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new menuAdmin().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Logout;
-    private javax.swing.JMenuBar aplikasiParkir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel1;
@@ -416,11 +364,11 @@ public class menuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
