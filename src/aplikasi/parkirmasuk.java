@@ -48,9 +48,10 @@ public class parkirmasuk extends javax.swing.JInternalFrame {
                     AutoKodeKarcis();
                     autoFoto();
                     autoPrint();
-                System.out.print("1");
+                    print.sendData("b");
                     break;
                 }
+                return;
             } catch (SerialPortException | ArduinoException ex) {
                 Logger.getLogger(parkirmasuk.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -96,7 +97,7 @@ public class parkirmasuk extends javax.swing.JInternalFrame {
                 String menit = nol_menit + Integer.toString(nilai_menit);
                 String detik = nol_detik + Integer.toString(nilai_detik);
        
-                NoTiket.setText(jam + tanggal +Nol + AN +  tanggal1 + menit);
+                NoTiket.setText(jam + tanggal + Nol + AN +  tanggal1 + menit);
                 
                 } else {
                     java.util.Date now = new java.util.Date();
@@ -177,9 +178,9 @@ public class parkirmasuk extends javax.swing.JInternalFrame {
         nokar = String.valueOf(NoTiket.getText());
         jamsuk = String.valueOf(JamMasuk.getText());
             try {
-                System.loadLibrary("opencv_java249.dll");
+                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 //                Core.NATIVE_LIBRARY_NAME
-                VideoCapture camera = new VideoCapture(0);
+                VideoCapture camera = new VideoCapture(1);
                 int max = 1;
                 int min = 10000;
                 Random randomNum = new Random();

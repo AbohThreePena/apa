@@ -2,21 +2,20 @@ package aplikasi;
 
 //import untuk source code aplikasi
 import javax.swing.JOptionPane;
-import java.sql.Statement;
-import koneksi.koneksiDB;
-import java.sql.ResultSet;
 import java.awt.Toolkit;
-import java.awt.HeadlessException;
-import java.sql.SQLException;
+import com.controller.loginCon;
 
 public class frameLogin extends javax.swing.JFrame {
+    
+    loginCon control = new loginCon(this);
     
     public frameLogin() {
         initComponents();
         setIcon();
-        Username.setEditable(false);
-        Password.setEditable(false);
+        txtUsername.setEditable(false);
+        txtPassword.setEditable(false);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,10 +28,10 @@ public class frameLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        JLevelUser = new javax.swing.JComboBox<>();
+        jComboUser = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        Username = new javax.swing.JTextField();
-        Password = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -86,32 +85,32 @@ public class frameLogin extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 0, 14))); // NOI18N
 
-        JLevelUser.setFont(new java.awt.Font("Agency FB", 0, 17)); // NOI18N
-        JLevelUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- PILIH --", "Admin", "Operator" }));
-        JLevelUser.addActionListener(new java.awt.event.ActionListener() {
+        jComboUser.setFont(new java.awt.Font("Agency FB", 0, 17)); // NOI18N
+        jComboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- PILIH --", "Admin", "Operator" }));
+        jComboUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JLevelUserActionPerformed(evt);
+                jComboUserActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Agency FB", 0, 17)); // NOI18N
         jLabel4.setText("USER");
 
-        Username.setFont(new java.awt.Font("Agency FB", 0, 16)); // NOI18N
-        Username.setDisabledTextColor(new java.awt.Color(41, 128, 185));
-        Username.setSelectedTextColor(new java.awt.Color(41, 128, 185));
-        Username.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtUsername.setFont(new java.awt.Font("Agency FB", 0, 16)); // NOI18N
+        txtUsername.setDisabledTextColor(new java.awt.Color(41, 128, 185));
+        txtUsername.setSelectedTextColor(new java.awt.Color(41, 128, 185));
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                UsernameKeyPressed(evt);
+                txtUsernameKeyPressed(evt);
             }
         });
 
-        Password.setFont(new java.awt.Font("Agency FB", 0, 16)); // NOI18N
-        Password.setDisabledTextColor(new java.awt.Color(41, 128, 185));
-        Password.setSelectedTextColor(new java.awt.Color(41, 128, 185));
-        Password.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPassword.setFont(new java.awt.Font("Agency FB", 0, 16)); // NOI18N
+        txtPassword.setDisabledTextColor(new java.awt.Color(41, 128, 185));
+        txtPassword.setSelectedTextColor(new java.awt.Color(41, 128, 185));
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                PasswordKeyPressed(evt);
+                txtPasswordKeyPressed(evt);
             }
         });
 
@@ -133,9 +132,9 @@ public class frameLogin extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JLevelUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -144,14 +143,14 @@ public class frameLogin extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(JLevelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
@@ -206,111 +205,11 @@ public class frameLogin extends javax.swing.JFrame {
      private void setIcon() {
             setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gambar/mbl.png")));
     }
-    public void enterkeypress() {
-        String username = Username.getText();
-        String password = Password.getText();
-        String leveluser = JLevelUser.getSelectedItem().toString();
-        
-        try
-        {
-        Statement statement = (Statement)koneksiDB.getConnection().createStatement();//statement untuk konek database
-        ResultSet result  = statement.executeQuery("select * from login_data2 where "
-                + "" + "username='" + username + "'");//verifikasi data login berdasarkan username yang ada didatabase
-        
-            if (result.next()) {
-                String namalengkap = result.getString("nama_pegawai");
-                if(leveluser.equals(result.getString("level_user"))){
-                    if(password.equals(result.getString("Password"))){
-                        if(leveluser.equals("Admin")){
-                            this.setVisible(false);
-                            new menuAdmin().setVisible(true);
-                            this.dispose();
-                        }// hak akses user berdasarkan level user
-                        else {
-                            this.setVisible(false);
-                            new menu().setVisible(true);
-                            this.dispose();
-                        }
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(rootPane,"Password Salah");
-                        Password.setText("");
-                        Username.requestFocus();
-                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(rootPane,"User Tidak Sesuai");
-                    JLevelUser.setSelectedItem("");
-                    Username.setText("");
-                    Password.setText("");
-                    Username.requestFocus();
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(rootPane,"User Tidak Ditemukan");
-                Username.setText("");
-                Password.setText("");
-                Username.requestFocus();
-            }
-        }
-        catch (HeadlessException | SQLException e) {
-//            JOptionPane.showMessageDialog(rootPane,"Error 101!");
-        e.getStackTrace();
-        }
-    }
-    public void enterkeypress2() {
-        String username = Username.getText();
-        String password = Password.getText();
-        String kodepegawai= null, namapegawai = null;
-        String leveluser = JLevelUser.getSelectedItem().toString(); 
-        try {
-            String sql = "SELECT * FROM login_data2 WHERE username = '" + username + "' AND password = '" + password + "'";
-            Statement st = koneksiDB.getConnection().createStatement();
-            ResultSet rsLogin = st.executeQuery(sql);
-
-            while (rsLogin.next()) {
-                kodepegawai = rsLogin.getString("id");
-                namapegawai = rsLogin.getString("nama_pegawai");
-            }
-            rsLogin.last(); //mengecek jumlah baris pada hasil query
-            if (rsLogin.getRow()==1){
-                userakses.setU_kodePegawai(kodepegawai);
-                userakses.setU_username(username);
-                userakses.setU_password(password);
-                userakses.setU_levelUser(leveluser);
-                userakses.setU_nama(namapegawai);
-//                userakses.setU_fotoUser(fotopegawai);
-                    if(leveluser.equals(rsLogin.getString("level_user"))){
-                        if(leveluser.equals("Admin")){
-                            this.setVisible(false);
-                            new menuAdmin().setVisible(true);
-                            this.dispose();
-                            }// hak akses user berdasarkan level user
-                        else {
-                            this.setVisible(false);
-                            new menu().setVisible(true);
-                            this.dispose(); }
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(rootPane,"User Tidak Sesuai");
-                        JLevelUser.setSelectedItem("");
-                        Username.setText("");
-                        Password.setText("");
-                        Username.requestFocus();
-                    }
-            } else {
-                JOptionPane.showMessageDialog(null, "Maaf, Username / Password salah!");
-                Username.setText("");
-                Password.setText("");
-                Username.requestFocus();
-            }
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+     
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         try {   
-            enterkeypress2();
+            control.enterkeypress2();
+            this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
         }
@@ -326,67 +225,49 @@ public class frameLogin extends javax.swing.JFrame {
   
     private void LoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginKeyPressed
         //dispose setelah login di tekan
-        this.dispose();
+        try {
+            control.enterkeypress2();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_LoginKeyPressed
 
-    private void UsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UsernameKeyPressed
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
         // TODO add your handling code here:
         try {
             if (evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) {
-                enterkeypress2();
+                control.enterkeypress2();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
         }    
-    }//GEN-LAST:event_UsernameKeyPressed
+    }//GEN-LAST:event_txtUsernameKeyPressed
 
-    private void PasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyPressed
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         // TODO add your handling code here:
         try {
             if (evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) {
-                enterkeypress2();
+                control.enterkeypress2();
             } 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_PasswordKeyPressed
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
-    private void JLevelUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JLevelUserActionPerformed
+    private void jComboUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboUserActionPerformed
         // TODO add your handling code here:
-        int a = JLevelUser.getSelectedIndex();
-        switch (a) {
-            case 1:
-                Username.requestFocus();
-                Username.setEditable(true);
-                Password.setEditable(true);
-                break;
-            case 2:
-                Username.requestFocus();
-                Username.setEditable(true);
-                Password.setEditable(true);
-                break;
-            case 0:
-                Username.setEditable(false);
-                Password.setEditable(false);
-                break;
-            default:
-                break;
-        }
-    }//GEN-LAST:event_JLevelUserActionPerformed
+        control.comboAksi();
+    }//GEN-LAST:event_jComboUserActionPerformed
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frameLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frameLogin().setVisible(true);
         });
     }    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Exit;
-    public static javax.swing.JComboBox<String> JLevelUser;
     private javax.swing.JButton Login;
-    public static javax.swing.JPasswordField Password;
-    public static javax.swing.JTextField Username;
+    public javax.swing.JComboBox<String> jComboUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -397,6 +278,7 @@ public class frameLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    public javax.swing.JPasswordField txtPassword;
+    public javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-
 }

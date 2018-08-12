@@ -207,9 +207,9 @@
                           </Group>
                           <EmptySpace pref="13" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Username" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="Password" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="JLevelUser" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="txtUsername" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="txtPassword" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="jComboUser" alignment="1" min="-2" pref="199" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -221,16 +221,16 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="JLevelUser" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jComboUser" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Username" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Password" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
@@ -239,7 +239,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JComboBox" name="JLevelUser">
+                <Component class="javax.swing.JComboBox" name="jComboUser">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Agency FB" size="17" style="0"/>
@@ -253,11 +253,11 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JLevelUserActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboUserActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -268,7 +268,7 @@
                     <Property name="text" type="java.lang.String" value="USER"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="Username">
+                <Component class="javax.swing.JTextField" name="txtUsername">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Agency FB" size="16" style="0"/>
@@ -281,13 +281,13 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="UsernameKeyPressed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUsernameKeyPressed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="Password">
+                <Component class="javax.swing.JPasswordField" name="txtPassword">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Agency FB" size="16" style="0"/>
@@ -300,10 +300,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PasswordKeyPressed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasswordKeyPressed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">

@@ -41,6 +41,7 @@ public class menu extends javax.swing.JFrame {
     String namapegawai = userakses.getU_nama();
     String kodepegawai = userakses.getU_kodePegawai();
     String leveluser = userakses.getU_levelUser();
+    
 //    Byte fotopegawai = userakses.getU_fotoUser();
     
     public menu(){
@@ -448,7 +449,7 @@ public class menu extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 440, 80));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 440, 80));
 
         jButton3.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jButton3.setText("LOST TICKET");
@@ -636,7 +637,7 @@ public class menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             Connection con = koneksiDB.getConnection();
-            String sql = "Select id, harga_kendaraan from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
+            String sql = "Select id, harga_kendaraan, harga_maks_kend from harga_kendaraan where jenis_kendaraan ='"+jComboBox1.getSelectedItem()+"'";
             Statement stt;
             try {
                 stt = con.createStatement();
@@ -645,7 +646,9 @@ public class menu extends javax.swing.JFrame {
                     Object[] ob = new Object[3];
                     ob[0] = rss.getString(1);
                     ob[1] = rss.getInt(2);
+                    ob[2] = rss.getInt(3);
                     Integer harga = (Integer) ob[1];
+                    Integer maks = (Integer) ob[2];
 //                    int hargacvt = Integer.parseInt(harga);
                     ResultSet rs = getNomorKarcis();
                     Timestamp jmmasuk = rs.getTimestamp("jam_masuk");
@@ -653,6 +656,12 @@ public class menu extends javax.swing.JFrame {
                     String jmkeluar2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(jmkeluar);
                     int durasi = getDurasi(jmmasuk,jmkeluar);
                     int totalbayar = durasi*harga;
+                        if (totalbayar >= maks) {
+                            totalbayar = maks;
+                            if (maks == 0) {
+                                totalbayar = durasi*harga;
+                            }
+                        }
                     java.util.Date d = new java.util.Date();
                     SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             
@@ -671,9 +680,9 @@ public class menu extends javax.swing.JFrame {
             catch (SQLException ex) {
                 Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String nokar = jTextField2.getText();
             try{
-                String jrxmlFile = "src/laporantiket/struk.jrxml";
+                String nokar = jTextField2.getText();
+                String jrxmlFile = "C:\\Users\\Singgih\\Desktop\\Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\src\\laporantiket\\struk.jrxml";
                 Connection c = koneksiDB.getConnection();
                 HashMap param = new HashMap();
                 param.put("karcis", nokar);
@@ -684,6 +693,7 @@ public class menu extends javax.swing.JFrame {
             }
             catch(JRException e){
                 JOptionPane.showMessageDialog(rootPane, e);
+                JOptionPane.showMessageDialog(null, "error JRE");
             }
         }
         catch (SQLException ex) {
@@ -693,6 +703,7 @@ public class menu extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         jTextField2.setEditable(true);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_aiga_taxi_134116.png")));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/if_aiga_taxi_134116 - Copy.png")));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
@@ -721,31 +732,34 @@ public class menu extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
             //foto saat kendaraan keluar
             try {
-                VideoCapture camera = new VideoCapture(1);
+                System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+                VideoCapture camera = new VideoCapture(0);
                 int min = 10000;
                 Random randomNum = new Random();
                 int a = min + randomNum.nextInt();
                 Connection kon = koneksiDB.getConnection();
                 PreparedStatement ps = kon.prepareStatement("update parkir_keluar set fotokeluar=? where nomor_karcis = '"+jTextField2.getText()+"'");
                 Mat frame = new Mat();    
-                if(!camera.isOpened() || !camera.read(frame)){
+                if(!camera.read(frame)){
                         JOptionPane.showMessageDialog(this, "Mohon Cek Kamera Keluar!");
                     }
                     else {
                         while(true){
-                                Highgui.imwrite("camera"+a+".jpg", frame);
-                                InputStream is = new FileInputStream("C:\\Users\\Singgih\\Desktop\\Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\camera"+a+".jpg");
+                                Highgui.imwrite("C:\\Users\\Singgih\\Desktop\\"
+                                        + "Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\foto\\camera"+a+".jpg", frame);
+                                InputStream is = new FileInputStream("C:\\Users\\Singgih\\Desktop"
+                                        + "\\Aplikasi Parkir Axia\\Aplikasi Parkir Axia\\foto\\camera"+a+".jpg");
                                 ps.setBlob(1, is);
                                 ps.executeUpdate();
                                 break;
                         }
                     } camera.release();	
                 }
-            catch (Exception f) {
-                    JOptionPane.showMessageDialog(rootPane, "Error");
+                catch (Exception f) {
+                    JOptionPane.showMessageDialog(rootPane, "Error 201!");
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, f);
                     }
              try{
                  Connection con = koneksiDB.getConnection();
