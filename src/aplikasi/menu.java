@@ -36,11 +36,12 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import net.sf.jasperreports.engine.JasperPrintManager;
+import com.controller.userAkses;
 
 public class menu extends javax.swing.JFrame {
-    String namapegawai = userakses.getU_nama();
-    String kodepegawai = userakses.getU_kodePegawai();
-    String leveluser = userakses.getU_levelUser();
+    String namapegawai = userAkses.getU_nama();
+    String kodepegawai = userAkses.getU_kodePegawai();
+    String leveluser = userAkses.getU_levelUser();
     
 //    Byte fotopegawai = userakses.getU_fotoUser();
     

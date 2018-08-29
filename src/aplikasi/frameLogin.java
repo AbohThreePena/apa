@@ -237,6 +237,7 @@ public class frameLogin extends javax.swing.JFrame {
         try {
             if (evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) {
                 control.enterkeypress2();
+                this.dispose();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
@@ -248,6 +249,7 @@ public class frameLogin extends javax.swing.JFrame {
         try {
             if (evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER) {
                 control.enterkeypress2();
+                this.dispose();
             } 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error 101, Please Read Manual Book", "Warning!", JOptionPane.ERROR_MESSAGE);
@@ -260,8 +262,21 @@ public class frameLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboUserActionPerformed
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new frameLogin().setVisible(true);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Metal".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException 
+                | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new frameLogin().setVisible(true);
+            }
         });
     }    
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f5f20adf-b04c-45cc-b9f8-9165d5e91ba4">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="392"/>
-	<property name="ireport.y" value="11"/>
+	<property name="ireport.zoom" value="1.2418426461183114"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -37,10 +37,10 @@ FROM
 	<group name="parkir_keluar_id">
 		<groupExpression><![CDATA[$F{parkir_keluar_id}]]></groupExpression>
 		<groupHeader>
-			<band height="40"/>
+			<band height="3"/>
 		</groupHeader>
 		<groupFooter>
-			<band height="6"/>
+			<band height="3"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -54,11 +54,16 @@ FROM
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="c41abb7f-1f53-4a27-bf66-1390cd33faca"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="24"/>
+				</textElement>
 				<text><![CDATA[Data Laporan]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" uuid="cc4e52cd-cb1d-4c0f-8431-090bf8e7ed4e"/>
+				<textElement>
+					<font fontName="Agency FB" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Axia Parkir]]></text>
 			</staticText>
 		</band>
@@ -75,51 +80,86 @@ FROM
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="b6cc7c91-52a0-49f4-9f23-a3236618d798"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+				<reportElement style="Column header" x="1" y="20" width="69" height="15" uuid="b6cc7c91-52a0-49f4-9f23-a3236618d798"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
 				</textElement>
 				<text><![CDATA[PLAT NOMOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="88c6ba4c-666a-4d1e-9568-20332eb73e5e"/>
+				<reportElement style="Column header" x="70" y="20" width="99" height="15" uuid="88c6ba4c-666a-4d1e-9568-20332eb73e5e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Agency FB" size="12"/>
 				</textElement>
 				<text><![CDATA[NOMOR KARCIS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="2b5e0ade-ea31-4985-b319-bd965fe1ee7c"/>
+				<reportElement style="Column header" x="169" y="20" width="67" height="15" uuid="2b5e0ade-ea31-4985-b319-bd965fe1ee7c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Agency FB" size="12"/>
 				</textElement>
 				<text><![CDATA[JENIS ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="207" y="19" width="79" height="15" uuid="7fb57a1c-152e-48d2-b429-9dcd38174f81"/>
+				<reportElement style="Column header" x="236" y="20" width="110" height="15" uuid="7fb57a1c-152e-48d2-b429-9dcd38174f81"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Agency FB" size="12"/>
 				</textElement>
 				<text><![CDATA[WAKTU MASUK]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="286" y="19" width="79" height="15" uuid="0ad40fe2-cf52-45c7-accd-0af75736a202"/>
+				<reportElement style="Column header" x="346" y="20" width="116" height="15" uuid="0ad40fe2-cf52-45c7-accd-0af75736a202"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Agency FB" size="12"/>
 				</textElement>
 				<text><![CDATA[WAKTU KELUAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="365" y="19" width="97" height="15" uuid="23c4c1d5-8ac8-4259-b48a-5357274e4be5"/>
+				<reportElement style="Column header" x="462" y="20" width="90" height="15" uuid="5bbfb97c-2df0-42cc-8929-8164b0f3dd0f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[DURASI PARKIR]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="462" y="19" width="90" height="15" uuid="5bbfb97c-2df0-42cc-8929-8164b0f3dd0f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font fontName="Agency FB" size="12"/>
 				</textElement>
 				<text><![CDATA[TOTAL BAYAR]]></text>
 			</staticText>
@@ -134,40 +174,89 @@ FROM
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="1" y="0" width="69" height="15" uuid="d3636110-d414-4695-9f79-33b2683d7f49"/>
+				<reportElement style="Detail" x="1" y="1" width="68" height="15" uuid="d3636110-d414-4695-9f79-33b2683d7f49"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parkir_keluar_nomor_kendaraan}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="51cf94e7-4a96-40a8-836c-033d6d1420b4"/>
+				<reportElement style="Detail" x="69" y="1" width="99" height="15" uuid="51cf94e7-4a96-40a8-836c-033d6d1420b4"/>
+				<box leftPadding="2">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parkir_keluar_nomor_karcis}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="137" y="0" width="69" height="15" uuid="933456d4-c6cb-47b0-ae1b-e88de1db6712"/>
-				<textElement textAlignment="Center"/>
+				<reportElement style="Detail" x="168" y="1" width="69" height="15" uuid="933456d4-c6cb-47b0-ae1b-e88de1db6712"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parkir_keluar_jenis_kendaraan}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="Detail" x="205" y="0" width="69" height="15" uuid="473beb4f-5e65-462d-9b2e-2b28a05e03a1"/>
-				<textFieldExpression><![CDATA[$F{parkir_keluar_jam_masuk}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="273" y="0" width="69" height="15" uuid="7b67919d-1426-44d3-8165-8f2c28230096"/>
+			<textField pattern="dd/MM/yyyy  HH:mm:ss">
+				<reportElement style="Detail" x="346" y="1" width="116" height="15" uuid="7b67919d-1426-44d3-8165-8f2c28230096"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parkir_keluar_jam_keluar}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="Rp  #,##0">
 				<reportElement style="Detail" x="462" y="1" width="90" height="15" uuid="b21bbfa6-4b41-40ce-bd81-14f318fef3a0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parkir_keluar_total_bayar}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="Detail" x="378" y="0" width="20" height="16" uuid="b37d69dc-1de5-43fa-bb5f-b24ca55c200f"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{parkir_keluar_lama_parkir}]]></textFieldExpression>
+			<textField pattern="dd/MM/yyyy  HH:mm:ss">
+				<reportElement style="Detail" x="237" y="1" width="109" height="15" uuid="473beb4f-5e65-462d-9b2e-2b28a05e03a1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parkir_keluar_jam_masuk}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="398" y="1" width="64" height="15" uuid="fec975e7-72b4-4acc-ae8a-46d2b4076dbd"/>
-				<text><![CDATA[Jam]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>

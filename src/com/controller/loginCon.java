@@ -9,7 +9,6 @@ import aplikasi.menuAdmin;
 import aplikasi.menu;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
-import aplikasi.userakses;
 
 public class loginCon {
 
@@ -35,24 +34,19 @@ public class loginCon {
             }
             rsLogin.last(); //mengecek jumlah baris pada hasil query
             if (rsLogin.getRow()==1){
-                userakses.setU_kodePegawai(kodepegawai);
-                userakses.setU_username(username);
-                userakses.setU_password(password);
-                userakses.setU_levelUser(leveluser);
-                userakses.setU_nama(namapegawai);
+                userAkses.setU_kodePegawai(kodepegawai);
+                userAkses.setU_username(username);
+                userAkses.setU_password(password);
+                userAkses.setU_levelUser(leveluser);
+                userAkses.setU_nama(namapegawai);
 //                userakses.setU_fotoUser(fotopegawai);
+                    // hak akses user berdasarkan level user
                     if(leveluser.equals(rsLogin.getString("level_user"))){
                         if(leveluser.equals("Admin")){
-//                            this.setVisible(false);
                             new menuAdmin().setVisible(true);
-                            new frameLogin().setVisible(false);
-//                            this.dispose();
-                            }// hak akses user berdasarkan level user
+                        }
                         else {
-//                            this.setVisible(false);
                             new menu().setVisible(true);
-                            new frameLogin().setVisible(false);
-//                            this.dispose(); 
                         }
                     }
                     else{
